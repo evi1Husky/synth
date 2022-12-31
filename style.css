@@ -1,0 +1,85 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+* {
+  border: none;
+}
+img {
+  display: block;
+  max-width: 100%;
+}
+menu:not(article menu),
+ol:not(article ol),
+ul:not(article ul) {
+  list-style: none;
+}
+html {
+  font-size: 62.5%;
+  font-family: "Andale Mono", monospace;
+}
+menu,
+ol,
+ul {
+  padding-left: 0;
+}
+article ol,
+article ul {
+  list-style-position: inside;
+}
+
+body {
+  background: #171920;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.instrument-panel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+}
+
+.oscilloscope {
+  margin-left: 7.7rem;
+}
+
+.keyboard {
+  margin-top: 4rem;
+}
+
+.key {
+  border: none;
+  margin: 0.1rem;
+  width: 3.4rem;
+  height: 12rem;
+  border-radius: 0.4rem;
+  background-color: #8a96a8;
+}
+
+.key:hover {
+  background-color: #9ba7b9;
+}
+
+.key:active {
+  background-color: #778191;
+}
+
+.keyActive {
+  background-color: #778191;
+}
