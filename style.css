@@ -66,8 +66,8 @@ main {
 .key {
   border: none;
   margin: 0.1rem;
-  width: 3.4rem;
-  height: 12rem;
+  width: 3rem;
+  height: 11rem;
   border-radius: 0.4rem;
   background-color: #8a96a8;
 }

@@ -6,7 +6,7 @@ const gain = audioCtx.createGain();
 const analyser = audioCtx.createAnalyser();
 const destination = audioCtx.destination;
 
-gain.gain.exponentialRampToValueAtTime(0.4, audioCtx.currentTime);
+gain.gain.value = 0.5
 gain.connect(destination);
 gain.connect(analyser);
 
@@ -26,7 +26,8 @@ let attack = 0.01;
 let decay = 0.4;
 let sustain = 0.6;
 let release = 0.9;
-let waveform = "sine";
+let waveform = "triangle";
+let detune = 100;
 
 const notes = {
   0: 250.00,
@@ -35,16 +36,14 @@ const notes = {
   3: 330.42,
 }
 
-function createOscillator(frequency) {
+function envelopADS(frequency, waveform) {
   osc.push(audioCtx.createOscillator());
   gainOsc.push(audioCtx.createGain());
   osc[osc.length - 1].connect(gainOsc[gainOsc.length - 1]);
   gainOsc[gainOsc.length - 1].connect(gain);
+  osc[osc.length - 1].detune.setValueAtTime(detune, audioCtx.currentTime);
   osc[osc.length - 1].type = waveform;
   osc[osc.length - 1].frequency.setValueAtTime(frequency, audioCtx.currentTime);
-}
-
-function envelopADS() {
   osc[osc.length - 1].start(0);
   gainOsc[gainOsc.length - 1].gain.exponentialRampToValueAtTime(1.0,
     audioCtx.currentTime + attack);
@@ -66,8 +65,7 @@ const keysElements = document.querySelectorAll(".key");
 
 for (let key = 0; key < keysElements.length; key++) {
   keysElements[key].onmousedown = () => {
-    createOscillator(notes[key]);
-    envelopADS();
+    envelopADS(notes[key], waveform);
   };
 
   keysElements[key].onmouseup = () => {
@@ -80,11 +78,9 @@ document.addEventListener("keydown", (event) => {
   keyArray.push(keysElements[keys[event.key] - 1]);
   keysElements[keys[event.key] - 1].onmousedown();
   keysElements[keys[event.key] - 1].classList.toggle("keyActive");
-  
 });
 
 document.addEventListener("keyup", (event) => {
-  const index = keyArray.indexOf(keysElements[keys[event.key] - 1]);
-  envelopR(index)
+  keysElements[keys[event.key] - 1].onmouseup()
   keysElements[keys[event.key] - 1].classList.remove("keyActive");
 });
