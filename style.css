@@ -56,7 +56,7 @@ main {
 }
 
 .oscilloscope {
-  margin-left: 7.7rem;
+  margin-left: 5.5rem;
 }
 
 .keyboard {
@@ -70,6 +70,7 @@ main {
   height: 11rem;
   border-radius: 0.4rem;
   background-color: #8a96a8;
+  user-select: none;
 }
 
 .key:hover {

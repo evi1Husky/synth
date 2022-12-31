@@ -8,8 +8,8 @@ customElements.define(
       template.innerHTML = `
       <style>
       :host {
-        --width: 170px;
-        --height: 90px;
+        --width: 130px;
+        --height: 70px;
       }
       .oscilloscope {
         border: 1px solid #4a505a;

@@ -9,8 +9,8 @@ customElements.define(
       <style>
       :host {
         display: flex;
-        --width: 40px;
-        --height: 40px;
+        --width: 25px;
+        --height: 25px;
         --alpha: 0.07;
         --R: 214;
         --G: 229;
