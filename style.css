@@ -46,13 +46,19 @@ main {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  border: 0.5px solid #616a77;
+  min-width: 70rem;
+  min-height: 30rem;
+  width: 70rem;
+  height: 30rem;
+  border-radius: 1.5rem;
 }
 
 .instrument-panel {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 3rem;
+  gap: 2rem;
 }
 
 .oscilloscope {
@@ -66,8 +72,8 @@ main {
 .key {
   border: none;
   margin: 0.1rem;
-  width: 3rem;
-  height: 11rem;
+  width: 4rem;
+  height: 12rem;
   border-radius: 0.4rem;
   background-color: #8a96a8;
   user-select: none;

@@ -24,10 +24,10 @@ let decay = 0.4;
 let sustain = 0.6;
 let release = 0.9;
 
-gain.gain.value = 0.2
+gain.gain.value = 0.18
 let waveform = "triangle";
-let detune = -500;
-let delay = 10;
+let detune = -700;
+let delay = 2;
 let delayRelease = 0;
 
 let numberOfOscs = 3;
