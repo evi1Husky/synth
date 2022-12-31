@@ -1,6 +1,7 @@
 const oscilloscope = document.querySelector(".oscilloscope");
 const lamp = document.querySelector(".lamp");
 
+const keysElements = document.querySelectorAll(".key");
 const audioCtx = new AudioContext();
 const gain = audioCtx.createGain();
 const analyser = audioCtx.createAnalyser();
@@ -23,11 +24,13 @@ let decay = 0.4;
 let sustain = 0.6;
 let release = 0.9;
 
-gain.gain.value = 0.08
+gain.gain.value = 0.2
 let waveform = "triangle";
-let detune = -700;
+let detune = -500;
+let delay = 10;
+let delayRelease = 0;
 
-let numberOfOscs = 6;
+let numberOfOscs = 3;
 
 const keys = 
   {q:1, w:2, e:3, r:4, t:5, y:6, u:7, i:8, o:9, p:10, 
@@ -61,18 +64,24 @@ function envelopR(index) {
   gainOsc.splice(index, 1);
 }
 
-const keysElements = document.querySelectorAll(".key");
-
 for (let key = 0; key < keysElements.length; key++) {
   keysElements[key].onmousedown = () => {
+    let value = 0;
     for (let number = 0; number < numberOfOscs; number++) {
-      envelopADS(notes[key], waveform);
+      setTimeout(() => {
+        envelopADS(notes[key], waveform);
+      }, value);
+      value += delay;
     }
   };
 
   keysElements[key].onmouseup = () => {
     for (let number = 0; number < numberOfOscs; number++) {
-      envelopR(gainOsc.length - 1);
+      let value = 0;
+      setTimeout(() => {
+        envelopR(gainOsc.length - 1);
+      }, value);
+      value += delayRelease;
     }
   };
 }
@@ -89,8 +98,10 @@ document.addEventListener("keydown", (event) => {
 
 document.addEventListener("keyup", (event) => {
   try {
-    keysElements[keys[event.key] - 1].onmouseup()
-    keysElements[keys[event.key] - 1].classList.remove("keyActive");
+    setTimeout(() => {
+      keysElements[keys[event.key] - 1].onmouseup()
+      keysElements[keys[event.key] - 1].classList.remove("keyActive");
+    }, delay);
   } catch (error) {
     return
   }
