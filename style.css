@@ -53,6 +53,7 @@ body {
   width: 70rem;
   height: 33.5rem;
   border-radius: 1.1rem;
+  user-select: none;
 }
 
 .instrument-panel {
@@ -109,6 +110,7 @@ body {
 }
 
 .ADSR-label {
+  user-select: none;
   color: #8a96a8;
   display: block;
   text-align: center;

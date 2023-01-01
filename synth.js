@@ -53,7 +53,7 @@ export class Synth {
   envelopADS() {
     this.osc[this.osc.length - 1].start(0);
     this.gainOsc[this.gainOsc.length - 1].gain.exponentialRampToValueAtTime(
-      1.0, this.audioCtx.currentTime + this.attack);
+      1, this.audioCtx.currentTime + this.attack);
     this.gainOsc[this.gainOsc.length - 1].gain.exponentialRampToValueAtTime(
       this.sustain, this.audioCtx.currentTime + this.decay
     );

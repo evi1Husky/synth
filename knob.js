@@ -92,7 +92,7 @@ customElements.define(
       this.currentX = 0;
       this.minAngle = 125;
       this.maxAngle = 415;
-      this.dialRotationRate = 7;
+      this.dialRotationRate = 5;
       this.knobEventHandler = null;
 
       this.knobDial.style.transform = `rotate(${this.dialAngle}deg)`;
@@ -134,10 +134,10 @@ customElements.define(
 
     rotateRight(x) {
       if (this.dialAngle <= this.maxAngle) {
-        if (this.dialAngle > this.maxAngle - 7) {
+        if (this.dialAngle > this.maxAngle - 5) {
           this.dialRotationRate = 1;
         } else {
-          this.dialRotationRate = 7;
+          this.dialRotationRate = 5;
         }
         this.dialAngle += this.dialRotationRate;
         this.knobDial.style.transform = `rotate(${this.dialAngle}deg)`;
@@ -147,10 +147,10 @@ customElements.define(
 
     rotateLeft(x) {
       if (this.dialAngle >= this.minAngle) {
-        if (this.dialAngle < this.minAngle + 7) {
+        if (this.dialAngle < this.minAngle + 5) {
           this.dialRotationRate = 1;
         } else {
-          this.dialRotationRate = 7;
+          this.dialRotationRate = 5;
         }
         this.dialAngle -= this.dialRotationRate;
         this.knobDial.style.transform = `rotate(${this.dialAngle}deg)`;
