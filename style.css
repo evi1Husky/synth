@@ -51,18 +51,27 @@ body {
   min-width: 70rem;
   min-height: 30rem;
   width: 70rem;
-  height: 30rem;
-  border-radius: 1.5rem;
+  height: 33.5rem;
+  border-radius: 1.1rem;
 }
 
 .instrument-panel {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 2rem;
+  margin-left: 34rem;
 }
 
 .oscilloscope {
+  margin-top: 1rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+.lamp {
+  margin-bottom: 11rem;
+  margin-left: 1rem;
+  margin-right: 2rem;
 }
 
 .keyboard {
@@ -90,6 +99,22 @@ body {
 
 .keyActive {
   background-color: #778191;
+}
+
+.ADSR-controls {
+  display: flex;
+  width: 13rem;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.ADSR-label {
+  color: #8a96a8;
+  display: block;
+  text-align: center;
+  margin-bottom: 0.8rem;
+  font-size: 1.05rem;
+  font-weight: bolder;
 }
 
 @media screen and (min-width: 768px) and (max-width: 1024px) {}

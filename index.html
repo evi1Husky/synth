@@ -15,7 +15,7 @@
     <meta property="og:type" content="app"/>
     <link rel="icon" href="data:image/svg+xml,
     <svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22>
-    <text y=%22.9em%22 font-size=%2290%22>🌟</text></svg>"/>
+    <text y=%22.9em%22 font-size=%2290%22>✨</text></svg>"/>
     <title>synth</title>
     <link rel="stylesheet" href="style.css"/>
     <script type="module" src="oscilloscope.js"></script>
@@ -25,9 +25,26 @@
   <body>
     <main class="synth">
       <div class="instrument-panel">
+        <div class="ADSR-controls">
+          <div>
+            <label class="ADSR-label" for="attack">attack</label>
+            <control-knob name="attack" id="knobAttack"></control-knob>
+          </div>
+          <div>
+            <label class="ADSR-label" for="decay">decay</label>
+            <control-knob name="decay" id="knobDecay"></control-knob>
+          </div>
+          <div>
+            <label class="ADSR-label" for="sustain">sustain</label>
+            <control-knob name="sustain" id="knobSustain"></control-knob>
+          </div>
+          <div>
+            <label class="ADSR-label" for="release">release</label>
+            <control-knob name="release" id="knobRelease"></control-knob>
+          </div>
+        </div>
         <audio-oscilloscope class="oscilloscope"></audio-oscilloscope>
         <signal-lamp class="lamp"></signal-lamp>
-        <control-knob id="knob"></volume-knob>
       </div>
       <div class="keyboard">
         <button class="key" id="key1"></button>

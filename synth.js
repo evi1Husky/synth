@@ -9,7 +9,7 @@ export class Synth {
     this.gain.connect(this.destination);
     this.gain.connect(this.analyser);
 
-    this.gain.gain.value = 0.18;
+    this.gain.gain.value = 0.28;
     this.analyser.fftSize = 1024;
 
     this.init();
@@ -25,10 +25,10 @@ export class Synth {
 
   waveform = 'triangle';
   detune = -700;
-  delay = 2;
-  delayRelease = 0;
+  delay = 10;
+  delayRelease = 10;
 
-  numberOfOscs = 3;
+  numberOfOscs = 2;
 
   notes = {
     0: 262, 1: 294, 2: 311, 3: 349, 4: 392, 5: 415, 6: 466, 7: 523,
