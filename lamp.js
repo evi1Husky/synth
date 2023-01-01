@@ -69,7 +69,7 @@ customElements.define(
 
       const val = this.waveformData[Math.floor(Math.random() * this.length)];
       const map = val / 255;
-      const out = map * 1.2;
+      const out = map * 1.4;
       this.style.setProperty("--alpha", out);
     }
 

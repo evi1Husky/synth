@@ -32,7 +32,7 @@ article ul {
 }
 
 body {
-  background: #171920;
+  background: black;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -46,6 +46,7 @@ main {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background: #171920;
   border: 0.5px solid #616a77;
   min-width: 70rem;
   min-height: 30rem;

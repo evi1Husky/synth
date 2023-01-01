@@ -19,7 +19,7 @@ lamp.start();
 let osc = [];
 let gainOsc = [];
 
-let attack = 0.01;
+let attack = 0.1;
 let decay = 0.4;
 let sustain = 0.6;
 let release = 0.9;
@@ -40,7 +40,7 @@ const notes =
   {0: 262, 1: 294, 2: 311, 3: 349, 4: 392, 5: 415, 6: 466, 7: 523,
    8: 587, 9: 622, 10: 698, 11: 784, 12: 831, 13: 932, 14: 1047}
 
-function envelopADS(frequency, waveform) {
+function init(frequency) {
   osc.push(audioCtx.createOscillator());
   gainOsc.push(audioCtx.createGain());
   osc[osc.length - 1].connect(gainOsc[gainOsc.length - 1]);
@@ -48,41 +48,53 @@ function envelopADS(frequency, waveform) {
   osc[osc.length - 1].detune.setValueAtTime(detune, audioCtx.currentTime);
   osc[osc.length - 1].type = waveform;
   osc[osc.length - 1].frequency.setValueAtTime(frequency, audioCtx.currentTime);
+}
+
+function envelopADS() {
   osc[osc.length - 1].start(0);
-  gainOsc[gainOsc.length - 1].gain.exponentialRampToValueAtTime(1.0,
-    audioCtx.currentTime + attack);
-  gainOsc[gainOsc.length - 1].gain.exponentialRampToValueAtTime(sustain,
-    audioCtx.currentTime + decay
+  gainOsc[gainOsc.length - 1].gain.exponentialRampToValueAtTime(
+    1.0, audioCtx.currentTime + attack);
+  gainOsc[gainOsc.length - 1].gain.exponentialRampToValueAtTime(
+    sustain, audioCtx.currentTime + decay
   );
 }
 
 function envelopR(index) {
-  gainOsc[index].gain.linearRampToValueAtTime(0.00001,
-    audioCtx.currentTime + release);
+  gainOsc[index].gain.linearRampToValueAtTime(
+    0.00001, audioCtx.currentTime + release);
   osc[index].stop(audioCtx.currentTime + release + 0.01);
   osc.splice(index, 1);
   gainOsc.splice(index, 1);
 }
 
+function keyDownEvent(key) {
+  let value = 0;
+  for (let number = 0; number < numberOfOscs; number++) {
+    setTimeout(() => {
+      init(notes[key]);
+      envelopADS();
+    }, value);
+    value += delay;
+  }
+}
+
+function keyUpEvent() {
+  let value = 0;
+  for (let number = 0; number < numberOfOscs; number++) {
+    setTimeout(() => {
+      envelopR(gainOsc.length - 1);
+    }, value);
+    value += delayRelease;
+  }
+}
+
 for (let key = 0; key < keysElements.length; key++) {
   keysElements[key].onmousedown = () => {
-    let value = 0;
-    for (let number = 0; number < numberOfOscs; number++) {
-      setTimeout(() => {
-        envelopADS(notes[key], waveform);
-      }, value);
-      value += delay;
-    }
+    keyDownEvent(key)
   };
 
   keysElements[key].onmouseup = () => {
-    for (let number = 0; number < numberOfOscs; number++) {
-      let value = 0;
-      setTimeout(() => {
-        envelopR(gainOsc.length - 1);
-      }, value);
-      value += delayRelease;
-    }
+    keyUpEvent();
   };
 }
 
@@ -106,3 +118,23 @@ document.addEventListener("keyup", (event) => {
     return
   }
 });
+
+const hasTouchScreen = window.matchMedia('(any-pointer: coarse)').matches;
+
+if (hasTouchScreen) {
+  for (let key = 0; key < keysElements.length; key++) {
+    keysElements[key].onmousedown = null;
+    keysElements[key].onmouseup = null;
+  }
+  for (let key = 0; key < keysElements.length; key++) {
+    keysElements[key].ontouchstart = () => {
+      keyDownEvent(key);
+    };
+    keysElements[key].ontouchend = () => {
+      keyUpEvent();
+   };
+    keysElements[key].ontouchmove = () => {
+      keyUpEvent();
+   };
+  }
+}
