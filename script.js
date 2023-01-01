@@ -1,3 +1,5 @@
+localStorage.clear();
+
 const oscilloscope = document.querySelector(".oscilloscope");
 const lamp = document.querySelector(".lamp");
 
@@ -138,5 +140,3 @@ if (hasTouchScreen) {
    };
   }
 }
-
-localStorage.clear();
