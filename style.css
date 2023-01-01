@@ -65,14 +65,14 @@ body {
 
 .oscilloscope {
   margin-top: 1rem;
-  margin-left: 1rem;
-  margin-right: 1rem;
+  margin-left: 2rem;
+  margin-right: 0rem;
 }
 
 .lamp {
   margin-bottom: 11rem;
   margin-left: 1rem;
-  margin-right: 2rem;
+  margin-right: 1rem;
 }
 
 .keyboard {
@@ -103,10 +103,14 @@ body {
 }
 
 .ADSR-controls {
+  border-left: 0.5px solid #616a77;
+  border-right: 0.5px solid #616a77;
   display: flex;
+  align-items: center;
+  justify-content: center;
   width: 13rem;
   flex-wrap: wrap;
-  gap: 2rem;
+  gap: 1.8rem;
 }
 
 .ADSR-label {

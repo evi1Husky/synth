@@ -15,15 +15,11 @@ customElements.define(
         --height: 60px;
         --dialColor: #bccae1;
         --dialHeight: 120%;
-        --tickColor: #bccae1;
-        --tickLength: 7px;
-        --tickWidth: 1.5px;
-        --ticksMarginBottom: 3px;
         }
       
       .knob {
         position: relative;
-        cursor: pointer;
+        cursor: default;
         width: var(--width);
         height: var(--height);
         border-radius: 50%;
@@ -50,27 +46,6 @@ customElements.define(
         border-radius: 100px;
         background: var(--dialColor);
         box-shadow:  0 0 20px 0.1px var(--dialColor);
-      }
-      
-      .tick {
-        position: absolute;
-        width: var(--tickLength);
-        height: var(--tickWidth);
-        background-color: #3b3f48;
-        border-radius: 10px;
-        transform: rotate(0deg);
-      }
-      
-      .lit-tick {
-        background-color: var(--tickColor);
-        box-shadow:  0 0 10px 0.1px var(--tickColor);
-      }
-      
-      .tick-container {
-        background: transparent;
-        position: absolute;
-        transform: rotate(125deg);
-        margin-bottom: var(--ticksMarginBottom);
       }
       </style>
 
@@ -108,7 +83,6 @@ customElements.define(
       };
 
       this.knob.onmousedown = () => {
-        this.knob.style.cursor = 'grabbing';
         window.onmousemove = (event) => {
           this.knobEvent(event.x);
           if (this.knobEventHandler) {
@@ -118,7 +92,6 @@ customElements.define(
       };
 
       window.onmouseup = () => {
-        this.knob.style.cursor = 'pointer';
         window.onmousemove = null;
       };
     }
