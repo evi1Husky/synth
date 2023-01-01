@@ -138,3 +138,5 @@ if (hasTouchScreen) {
    };
   }
 }
+
+localStorage.clear();
