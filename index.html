@@ -7,25 +7,27 @@
     <meta name="mobile-web-app-capable" content="yes"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <meta name="theme-color" content="black" media="(prefers-color-scheme: dark)"/>
-    <meta name="description" content="Page description"/>
-    <meta property="og:title" content="Unique page title - My Site"/>
-    <meta property="og:description" content="Page description"/>
+    <meta name="description" content="synthesizer"/>
+    <meta property="og:title" content="synthesizer"/>
+    <meta property="og:description" content="synthesizer"/>
     <meta property="og:image" content="image.jpg"/>
     <meta property="og:image:alt" content="Image description"/>
-    <meta property="og:type" content="website"/>
+    <meta property="og:type" content="app"/>
     <link rel="icon" href="data:image/svg+xml,
     <svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22>
     <text y=%22.9em%22 font-size=%2290%22>🌟</text></svg>"/>
-    <title></title>
+    <title>synth</title>
     <link rel="stylesheet" href="style.css"/>
     <script type="module" src="oscilloscope.js"></script>
     <script type="module" src="lamp.js"></script>
+    <script type="module" src="knob.js"></script>
   </head>
   <body>
-    <main>
+    <main class="synth">
       <div class="instrument-panel">
         <audio-oscilloscope class="oscilloscope"></audio-oscilloscope>
         <signal-lamp class="lamp"></signal-lamp>
+        <control-knob id="knob"></volume-knob>
       </div>
       <div class="keyboard">
         <button class="key" id="key1"></button>
@@ -44,6 +46,7 @@
         <button class="key" id="key14"></button>
       </div>
     </main>
-    <script src="script.js" type="module"></script>
+    <script type="module" src="synth.js"></script>
+    <script src="main.js" type="module"></script>
   </body>
 </html>

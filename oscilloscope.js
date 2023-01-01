@@ -1,10 +1,10 @@
-"use strict";
+'use strict';
 
 customElements.define(
-  "audio-oscilloscope",
+  'audio-oscilloscope',
   class Oscilloscope extends HTMLElement {
     constructor() {
-      const template = document.createElement("template");
+      const template = document.createElement('template');
       template.innerHTML = `
       <style>
       :host {
@@ -22,15 +22,15 @@ customElements.define(
       <canvas class="oscilloscope"></canvas>`;
 
       super();
-      this.shadow = this.attachShadow({ mode: "open" });
+      this.shadow = this.attachShadow({ mode: 'open' });
       this.shadowRoot.appendChild(template.content.cloneNode(true));
 
-      this.canvas = this.shadow.querySelector(".oscilloscope");
-      this.canvasContext = this.canvas.getContext("2d");
+      this.canvas = this.shadow.querySelector('.oscilloscope');
+      this.canvasContext = this.canvas.getContext('2d');
       this.canvas.width = this.canvas.clientWidth;
       this.canvas.height = this.canvas.clientHeight;
-      this.canvasContext.fillStyle = "black";
-      this.canvasContext.strokeStyle = "rgb(187, 230, 230)";
+      this.canvasContext.fillStyle = 'black';
+      this.canvasContext.strokeStyle = 'rgb(187, 230, 230)';
       this.canvasContext.lineWidth = 2;
 
       this.suspended = true;
@@ -73,12 +73,12 @@ customElements.define(
       for (let i = 0; i < this.numberOfValues; i++) {
         const y = ((this.waveformData[i] / 128.0) * this.canvas.height) / 2;
         switch (i) {
-          case 0:
-            this.canvasContext.moveTo(x, y);
-            break;
-          default:
-            this.canvasContext.lineTo(x, y);
-            break;
+        case 0:
+          this.canvasContext.moveTo(x, y);
+          break;
+        default:
+          this.canvasContext.lineTo(x, y);
+          break;
         }
         x += (this.canvas.width * 1.0) / this.numberOfValues;
       }
@@ -87,8 +87,8 @@ customElements.define(
     }
 
     set size([width, height]) {
-      this.style.setProperty("--width", width);
-      this.style.setProperty("--height", height);
+      this.style.setProperty('--width', width);
+      this.style.setProperty('--height', height);
     }
   }
 );
