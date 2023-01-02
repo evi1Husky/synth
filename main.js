@@ -83,10 +83,27 @@ knobVcoNum.value = 100;
 function knobVcoNumEvent() {
   const val = knobVcoNum.currentValue / 23;
   synth.numberOfOscs = ~~remapRange(val, 0, 3, 1, 3);
-  console.log(synth.numberOfOscs)
 }
 knobVcoNum.knobEventHandler = knobVcoNumEvent();
 knobVcoNum.knobEventHandler = knobVcoNumEvent;
+
+const knobLowPassFrq = document.getElementById('knobLowpass');
+knobLowPassFrq.value = 100;
+function knobLowPassFrqEvent() {
+  const val = knobLowPassFrq.currentValue / 100;
+  synth.lowpass = val;
+}
+knobLowPassFrq.knobEventHandler = knobLowPassFrqEvent();
+knobLowPassFrq.knobEventHandler = knobLowPassFrqEvent;
+
+const knobQ = document.getElementById('knobQ');
+knobQ.value = 100;
+function knobQEvent() {
+  const val = knobQ.currentValue / 100;
+  synth.Q = val;
+}
+knobQ.knobEventHandler = knobQEvent();
+knobQ.knobEventHandler = knobQEvent;
 
 const waveFormButtons = document.querySelectorAll('.wave-form-button');
 waveFormButtons.forEach(button => {

@@ -5,7 +5,11 @@ export class Synth {
     this.gain = this.audioCtx.createGain();
     this.analyser = this.audioCtx.createAnalyser();
     this.destination = this.audioCtx.destination;
+    this.filter = this.audioCtx.createBiquadFilter();
+    this.maxFilterFrequency = this.audioCtx.sampleRate / 2;
+    this.filter.type = 'lowpass';
 
+    this.filter.connect(this.gain);
     this.gain.connect(this.destination);
     this.gain.connect(this.analyser);
 
@@ -27,7 +31,6 @@ export class Synth {
   detune = 0;
   detuneValue = 30;
   delay = 0;
-
   numberOfOscs = 3;
 
   notes = {
@@ -42,7 +45,7 @@ export class Synth {
     this.osc.push(this.audioCtx.createOscillator());
     this.gainOsc.push(this.audioCtx.createGain());
     this.osc[this.osc.length - 1].connect(this.gainOsc[this.gainOsc.length - 1]);
-    this.gainOsc[this.gainOsc.length - 1].connect(this.gain);
+    this.gainOsc[this.gainOsc.length - 1].connect(this.filter);
     this.osc[this.osc.length - 1].detune.setValueAtTime(this.detune, 
       this.audioCtx.currentTime);
     this.osc[this.osc.length - 1].type = this.waveform;
@@ -71,13 +74,14 @@ export class Synth {
     let value = 0;
     for (let number = 0; number < this.numberOfOscs; number++) {
       setTimeout(() => {
-        this.detune = 
-          Math.random() * (this.detuneValue - -this.detuneValue) + -this.detuneValue;
         this.createOsc(this.notes[key]);
         this.envelopADS();
+        this.detune = 
+          Math.random() * (this.detuneValue - -this.detuneValue) + -this.detuneValue;
       }, value);
       value += this.delay;
     }
+    this.detune = 0;
   }
 
   keyUpEvent() {
@@ -141,5 +145,13 @@ export class Synth {
         };
       }
     }
+  }
+
+  set Q(val) {
+    this.filter.Q.value = val * 30
+  }
+
+  set lowpass(val) {
+    this.filter.frequency.value = this.maxFilterFrequency * val;
   }
 }

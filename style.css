@@ -72,7 +72,7 @@ body {
 .lamp {
   margin-bottom: 11rem;
   margin-left: 0.5rem;
-  margin-right: 24rem;
+  margin-right: 30rem;
 }
 
 .keyboard {
@@ -123,7 +123,17 @@ body {
   gap: 1.8rem;
 }
 
-.ADSR-label, .gain-delay-label {
+.low-pass-filter {
+    border-left: 0.5px solid #616a77;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 5.7rem;
+    flex-wrap: wrap;
+    gap: 1.8rem;
+}
+
+.ADSR-label, .gain-delay-label, .low-pass-filter-label {
   user-select: none;
   color: #8a96a8;
   display: block;
