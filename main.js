@@ -81,8 +81,9 @@ knobDetune.knobEventHandler = knobDetuneEvent;
 const knobVcoNum = document.getElementById('knobVco-num');
 knobVcoNum.value = 100;
 function knobVcoNumEvent() {
-  const val = knobVcoNum.currentValue / 20;
-  synth.numberOfOscs = ~~remapRange(val, 0, 4, 1, 4);
+  const val = knobVcoNum.currentValue / 23;
+  synth.numberOfOscs = ~~remapRange(val, 0, 3, 1, 3);
+  console.log(synth.numberOfOscs)
 }
 knobVcoNum.knobEventHandler = knobVcoNumEvent();
 knobVcoNum.knobEventHandler = knobVcoNumEvent;

@@ -28,7 +28,7 @@ export class Synth {
   detuneValue = 30;
   delay = 0;
 
-  numberOfOscs = 4;
+  numberOfOscs = 3;
 
   notes = {
     0: 262, 1: 294, 2: 311, 3: 349, 4: 392, 5: 415, 6: 466, 7: 523,
