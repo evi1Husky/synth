@@ -87,3 +87,16 @@ function knobVcoNumEvent() {
 }
 knobVcoNum.knobEventHandler = knobVcoNumEvent();
 knobVcoNum.knobEventHandler = knobVcoNumEvent;
+
+const waveFormButtons = document.querySelectorAll('.wave-form-button');
+waveFormButtons.forEach(button => {
+  button.onclick = (event) => {
+    button.classList.toggle('wave-form-button-active');
+    synth.waveform = button.value;
+    waveFormButtons.forEach(otherButton => {
+      if (otherButton != event.target) {
+        otherButton.classList.remove('wave-form-button-active');
+      }
+    });
+  }
+});
