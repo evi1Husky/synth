@@ -91,11 +91,9 @@ knobVcoNum.knobEventHandler = knobVcoNumEvent;
 const waveFormButtons = document.querySelectorAll('.wave-form-button');
 waveFormButtons.forEach(button => {
   if (synth.waveform === button.value) {
-    button.classList.remove('wave-form-button-active');
     button.classList.toggle('wave-form-button-active');
   }
   button.onclick = (event) => {
-    button.classList.remove('wave-form-button-active');
     button.classList.toggle('wave-form-button-active');
     synth.waveform = button.value;
     waveFormButtons.forEach(otherButton => {
