@@ -164,11 +164,22 @@ body {
   border: 1px solid #2b2d35;
 }
 
-@media screen and (min-width: 768px) and (max-width: 1024px) {}
 
-@media screen and (min-width: 575px) and (max-width: 767.98px) {}
 
-@media screen and (min-width: 320px) and (max-width: 480px) {}
+
+@media (min-width: 420px) {
+.synth {
+    min-width: 95%;
+    min-height: 33.5rem;
+    width: 95%;
+    height: 33.5rem;
+  }
+  .key {
+    width: 4rem;
+    height: 12rem;
+  }
+}
+
 
 @media screen and (orientation:landscape) {
 
