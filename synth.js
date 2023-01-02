@@ -9,7 +9,7 @@ export class Synth {
     this.gain.connect(this.destination);
     this.gain.connect(this.analyser);
 
-    this.gain.gain.value = 0.23;
+    this.gain.gain.value = 0.15;
     this.analyser.fftSize = 1024;
 
     this.init();
@@ -24,11 +24,11 @@ export class Synth {
   release = 0.9;
 
   waveform = 'triangle';
-  detune = -700;
-  delay = 1;
-  delayRelease = 1;
+  detune = 0;
+  detuneValue = 30;
+  delay = 0;
 
-  numberOfOscs = 2;
+  numberOfOscs = 4;
 
   notes = {
     0: 262, 1: 294, 2: 311, 3: 349, 4: 392, 5: 415, 6: 466, 7: 523,
@@ -71,6 +71,8 @@ export class Synth {
     let value = 0;
     for (let number = 0; number < this.numberOfOscs; number++) {
       setTimeout(() => {
+        this.detune = 
+          Math.random() * (this.detuneValue - -this.detuneValue) + -this.detuneValue;
         this.createOsc(this.notes[key]);
         this.envelopADS();
       }, value);

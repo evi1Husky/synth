@@ -144,6 +144,7 @@ body {
 }
 
 .wave-form-button {
+  user-select: none;
   font-family: "Andale Mono", monospace;
   border-radius: 0.6rem;
   font-size: 1.05rem;
