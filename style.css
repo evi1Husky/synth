@@ -72,7 +72,7 @@ body {
 .lamp {
   margin-bottom: 11rem;
   margin-left: 1rem;
-  margin-right: 1rem;
+  margin-right: 14rem;
 }
 
 .keyboard {
@@ -113,7 +113,17 @@ body {
   gap: 1.8rem;
 }
 
-.ADSR-label {
+.gain-delay-controls {
+  border-left: 0.5px solid #616a77;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 13rem;
+  flex-wrap: wrap;
+  gap: 1.8rem;
+}
+
+.ADSR-label, .gain-delay-label {
   user-select: none;
   color: #8a96a8;
   display: block;

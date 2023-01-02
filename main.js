@@ -14,12 +14,14 @@ const lamp = document.querySelector('.lamp');
 lamp.analyser = synth.analyser;
 lamp.start();
 
+function remapRange(x, inMin, inMax, outMin, outMax) {
+  return (x - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
+}
+
 const knobAttack = document.getElementById('knobAttack');
 knobAttack.value = 30;
 function knobAttackEvent() {
-  const val = (knobAttack.currentValue / 100) / 2.7;
-  synth.attack = val;
-  console.log(`attack: ${synth.attack}`)
+  synth.attack = (knobAttack.currentValue / 100) / 2.7;
 }
 knobAttack.knobEventHandler = knobAttackEvent();
 knobAttack.knobEventHandler = knobAttackEvent;
@@ -27,9 +29,7 @@ knobAttack.knobEventHandler = knobAttackEvent;
 const knobDecay = document.getElementById('knobDecay');
 knobDecay.value = 40;
 function knobDecayEvent() {
-  const val = (knobDecay.currentValue / 100);
-  synth.decay = val;
-  console.log(`decay: ${synth.decay}`);
+  synth.decay = knobDecay.currentValue / 100;
 }
 knobDecay.knobEventHandler = knobDecayEvent();
 knobDecay.knobEventHandler = knobDecayEvent;
@@ -37,12 +37,11 @@ knobDecay.knobEventHandler = knobDecayEvent;
 const knobSustain = document.getElementById('knobSustain');
 knobSustain.value = 60;
 function knobSustainEvent() {
-  const val = (knobSustain.currentValue / 100);
+  let val = knobSustain.currentValue / 100;
   if (val === 0) {
     val = 0.01;
   }
   synth.sustain = val;
-  console.log(`sustain: ${synth.sustain}`);
 }
 knobSustain.knobEventHandler = knobSustainEvent();
 knobSustain.knobEventHandler = knobSustainEvent;
@@ -50,13 +49,41 @@ knobSustain.knobEventHandler = knobSustainEvent;
 const knobRelease = document.getElementById('knobRelease');
 knobRelease.value = 30;
 function knobReleaseEvent() {
-  const val = (knobRelease.currentValue)
-  synth.release = remapRange(val, 0, 100, 0, 3);
-  console.log(`release: ${synth.release}`);
+  synth.release = remapRange(knobRelease.currentValue, 0, 100, 0, 3);
 }
 knobRelease.knobEventHandler = knobReleaseEvent();
 knobRelease.knobEventHandler = knobReleaseEvent;
 
-function remapRange(x, inMin, inMax, outMin, outMax) {
-  return (x - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
+const knobGain = document.getElementById('knobGain');
+knobGain.value = 43;
+function knobGainEvent() {
+  synth.gain.gain.value = (knobGain.currentValue / 100) / 2;
 }
+knobGain.knobEventHandler = knobGainEvent();
+knobGain.knobEventHandler = knobGainEvent;
+
+const knobDelay = document.getElementById('knobDelay');
+knobDelay.value = 1;
+function knobDelayEvent() {
+  synth.delay = (knobDelay.currentValue / 100) * 100;
+}
+knobDelay.knobEventHandler = knobDelayEvent();
+knobDelay.knobEventHandler = knobDelayEvent;
+
+const knobDetune = document.getElementById('knobDetune');
+knobDetune.value = 15;
+function knobDetuneEvent() {
+  const val = (knobDetune.currentValue * 2000) / 100;
+  synth.detune = remapRange(val, 0, 2000, -1000, 1000);
+}
+knobDetune.knobEventHandler = knobDetuneEvent();
+knobDetune.knobEventHandler = knobDetuneEvent;
+
+const knobVcoNum = document.getElementById('knobVco-num');
+knobVcoNum.value = 40;
+function knobVcoNumEvent() {
+  const val = knobVcoNum.currentValue / 20;
+  synth.numberOfOscs = ~~remapRange(val, 0, 4, 1, 4);
+}
+knobVcoNum.knobEventHandler = knobVcoNumEvent();
+knobVcoNum.knobEventHandler = knobVcoNumEvent;
