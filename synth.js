@@ -86,10 +86,12 @@ export class Synth {
 
   keyDownEvent(key) {
     let value = 0;
+    let note = this.notes[key]
     for (let number = 0; number < this.numberOfOscs; number++) {
       setTimeout(() => {
-        this.createOsc(this.notes[key]);
+        this.createOsc(note);
         this.envelopADS();
+        // note = this.transpose(note, -7)
         this.detune = 
           Math.random() * (this.detuneValue - -this.detuneValue) + -this.detuneValue;
       }, value);
@@ -97,6 +99,8 @@ export class Synth {
     }
     this.detune = 0;
   }
+
+  transpose = (frequency, steps) => frequency * Math.pow(2, steps / 12);
 
   keyUpEvent() {
     let value = 0;
