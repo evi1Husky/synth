@@ -1,21 +1,29 @@
 export class Synth {
   constructor() {
     this.keysElements = document.querySelectorAll('.key');
-    this.audioCtx = new AudioContext();
-    this.gain = this.audioCtx.createGain();
-    this.analyser = this.audioCtx.createAnalyser();
-    this.destination = this.audioCtx.destination;
-    this.filter = this.audioCtx.createBiquadFilter();
+    this.context = new (window.AudioContext || window.webkitAudioContext)();
+    this.gain = this.context.createGain();
+    this.analyser = this.context.createAnalyser();
+    this.destination = this.context.destination;
+    this.filter = this.context.createBiquadFilter();
+    this.delay = this.context.createDelay();
+    this.feedback = this.context.createGain();
 
+    this.filter.connect(this.delay);
     this.filter.connect(this.gain);
+    this.delay.connect(this.feedback);
+    this.feedback.connect(this.delay);
+    this.delay.connect(this.gain);
     this.gain.connect(this.destination);
     this.gain.connect(this.analyser);
 
     this.gain.gain.value = 0.15;
     this.analyser.fftSize = 1024;
-    this.maxFilterFrequency = this.audioCtx.sampleRate / 2;
+    this.maxFilterFrequency = this.context.sampleRate / 2;
     this.filter.type = 'lowpass';
-
+    this.delay.delayTime.value = 0;
+    this.feedback.gain.value = 0;
+    
     this.init();
   }
 
@@ -30,7 +38,6 @@ export class Synth {
   waveform = 'triangle';
   detune = 0;
   detuneValue = 30;
-  delay = 0;
   numberOfOscs = 3;
 
   notes = {
@@ -56,9 +63,9 @@ export class Synth {
     '[': 11, ']': 12, 'a': 13, 's': 14,};
 
   createOsc(frequency) {
-    const now = this.audioCtx.currentTime;
-    this.osc.push(this.audioCtx.createOscillator());
-    this.gainOsc.push(this.audioCtx.createGain());
+    const now = this.context.currentTime;
+    this.osc.push(this.context.createOscillator());
+    this.gainOsc.push(this.context.createGain());
     this.osc[this.osc.length - 1].connect(this.gainOsc[this.gainOsc.length - 1]);
     this.gainOsc[this.gainOsc.length - 1].connect(this.filter);
     this.osc[this.osc.length - 1].detune.setValueAtTime(this.detune, now);
@@ -67,7 +74,7 @@ export class Synth {
   }
 
   envelopADS() {
-    const now = this.audioCtx.currentTime;
+    const now = this.context.currentTime;
     this.osc[this.osc.length - 1].start(0);
     this.gainOsc[this.gainOsc.length - 1].gain.exponentialRampToValueAtTime(
       1, now + this.attack);
@@ -76,7 +83,7 @@ export class Synth {
   }
 
   envelopR(index) {
-    const now = this.audioCtx.currentTime;
+    const now = this.context.currentTime;
     this.gainOsc[index].gain.linearRampToValueAtTime(
       0.00001, now + this.release);
     this.osc[index].stop(now + this.release + 0.01);
@@ -85,17 +92,13 @@ export class Synth {
   }
 
   keyDownEvent(key) {
-    let value = 0;
     let note = this.notes[key]
     for (let number = 0; number < this.numberOfOscs; number++) {
-      setTimeout(() => {
-        this.createOsc(note);
-        this.envelopADS();
-        // note = this.transpose(note, -7)
-        this.detune = 
-          Math.random() * (this.detuneValue - -this.detuneValue) + -this.detuneValue;
-      }, value);
-      value += this.delay;
+      this.createOsc(note);
+      this.envelopADS();
+      // note = this.transpose(note, -7)
+      this.detune = 
+        Math.random() * (this.detuneValue - -this.detuneValue) + -this.detuneValue;
     }
     this.detune = 0;
   }
@@ -103,12 +106,8 @@ export class Synth {
   transpose = (frequency, steps) => frequency * Math.pow(2, steps / 12);
 
   keyUpEvent() {
-    let value = 0;
     for (let number = 0; number < this.numberOfOscs; number++) {
-      setTimeout(() => {
-        this.envelopR(this.gainOsc.length - 1);
-      }, value);
-      value += this.delay;
+      this.envelopR(this.gainOsc.length - 1);
     }
   }
 
@@ -135,10 +134,8 @@ export class Synth {
 
     document.addEventListener('keyup', (event) => {
       try {
-        setTimeout(() => {
-          this.keysElements[this.keys[event.key] - 1].onmouseup();
-          this.keysElements[this.keys[event.key] - 1].classList.remove('keyActive');
-        }, this.delay);
+        this.keysElements[this.keys[event.key] - 1].onmouseup();
+        this.keysElements[this.keys[event.key] - 1].classList.remove('keyActive');
       } catch (error) {
         return;
       }

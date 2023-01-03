@@ -61,22 +61,13 @@ knobRelease.knobEventHandler = knobReleaseEvent();
 knobRelease.knobEventHandler = knobReleaseEvent;
 
 const knobGain = document.getElementById('knobGain');
-knobGain.value = 35;
+knobGain.value = 50;
 function knobGainEvent() {
-  synth.gain.gain.value = (knobGain.currentValue / 100) / 2;
-  setParameterDisplay(synth.gain.gain.value.toFixed(2));
+  synth.gain.gain.value = (knobGain.currentValue / 100) / 6;
+  setParameterDisplay(knobGain.currentValue);
 }
 knobGain.knobEventHandler = knobGainEvent();
 knobGain.knobEventHandler = knobGainEvent;
-
-const knobDelay = document.getElementById('knobDelay');
-knobDelay.value = 0;
-function knobDelayEvent() {
-  synth.delay = (knobDelay.currentValue / 100) * 100;
-  setParameterDisplay(synth.delay.toFixed(0));
-}
-knobDelay.knobEventHandler = knobDelayEvent();
-knobDelay.knobEventHandler = knobDelayEvent;
 
 const knobDetune = document.getElementById('knobDetune');
 knobDetune.value = 20;
@@ -87,15 +78,23 @@ function knobDetuneEvent() {
 knobDetune.knobEventHandler = knobDetuneEvent();
 knobDetune.knobEventHandler = knobDetuneEvent;
 
-const knobVcoNum = document.getElementById('knobVco-num');
-knobVcoNum.value = 100;
-function knobVcoNumEvent() {
-  const val = knobVcoNum.currentValue / 23;
-  synth.numberOfOscs = ~~remapRange(val, 0, 3, 1, 3);
-  setParameterDisplay(synth.numberOfOscs);
+const knobDelay = document.getElementById('knobDelay');
+knobDelay.value = 0;
+function knobDelayEvent() {
+  synth.delay.delayTime.value = (knobDelay.currentValue / 100);
+  setParameterDisplay(synth.delay.delayTime.value.toFixed(2));
 }
-knobVcoNum.knobEventHandler = knobVcoNumEvent();
-knobVcoNum.knobEventHandler = knobVcoNumEvent;
+knobDelay.knobEventHandler = knobDelayEvent();
+knobDelay.knobEventHandler = knobDelayEvent;
+
+const deelayFeedback = document.getElementById('deelayFeedback');
+deelayFeedback.value = 0;
+function deelayFeedbackEvent() {
+  synth.feedback.gain.value = (deelayFeedback.currentValue / 100);
+  setParameterDisplay(synth.feedback.gain.value.toFixed(2));
+}
+deelayFeedback.knobEventHandler = deelayFeedbackEvent();
+deelayFeedback.knobEventHandler = deelayFeedbackEvent;
 
 const knobLowPassFrq = document.getElementById('knobLowpass');
 knobLowPassFrq.value = 100;
@@ -135,9 +134,6 @@ waveFormButtons.forEach(button => {
 
 function setParameterDisplay(val) {
   parameterDisplay.textContent = val;
-  setTimeout(() => {
-    parameterDisplay.textContent = "";
-  }, 10000);
 }
 
 setParameterDisplay("");
