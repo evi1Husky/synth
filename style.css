@@ -58,10 +58,10 @@ body {
   align-items: center;
   background: #171920;
   border: 0.5px solid #616a77;
-  min-width: 70rem;
-  min-height: 34.5rem;
-  width: 70rem;
-  height: 34.5rem;
+  min-width: 80rem;
+  min-height: 35rem;
+  width: 80rem;
+  height: 35rem;
   border-radius: 1.1rem;
   user-select: none;
 }
@@ -76,13 +76,13 @@ body {
 .oscilloscope {
   margin-top: 1rem;
   margin-left: 2rem;
-  margin-right: 0rem;
+  margin-right: 33rem;
 }
 
 .lamp {
-  margin-bottom: 11rem;
-  margin-left: 0.5rem;
-  margin-right: 30rem;
+  margin-bottom: 15rem;
+  margin-left: 40rem;
+  position: absolute;
 }
 
 .keyboard {
@@ -123,7 +123,15 @@ body {
   gap: 1.8rem;
 }
 
-.gain-delay-controls {
+#horizontalLine {
+  margin-right: 32.8rem;
+  position: absolute;
+  width: 13.1rem;
+  height: 0.5px;
+  background-color: #616a77;
+}
+
+.gain-delay-controls, .LFO-controls {
   border-left: 0.5px solid #616a77;
   display: flex;
   align-items: center;
@@ -138,12 +146,12 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 5.7rem;
+    width: 6.2rem;
     flex-wrap: wrap;
     gap: 1.8rem;
 }
 
-.ADSR-label, .gain-delay-label, .low-pass-filter-label {
+.ADSR-label, .gain-delay-label, .low-pass-filter-label, .LFO-label {
   user-select: none;
   color: rgba(214, 229, 255, 0.6);
   display: block;
@@ -193,7 +201,7 @@ body {
   height: 1.2rem;
   background-color: black;
   border: 0.5px solid #616a77;
-  margin-right: 71rem;
+  margin-right: 61.7rem;
   border-radius: 0.5rem;
   position: absolute;
   margin-bottom: 14rem;
@@ -216,6 +224,11 @@ body {
     height: 99vh;
     overflow: hidden;
   }
+
+    #horizontalLine {
+      margin-right: 31rem;
+      width: 15.5rem;
+    }
 
   .keyboard {
     margin-top: 5rem;
@@ -244,8 +257,11 @@ body {
   }
 
   .lamp {
-    margin-bottom: 11rem;
-    margin-left: 2rem;
-    margin-right: 25rem;
+    margin-bottom: 15rem;
+    margin-left: 57rem;
+  }
+
+  .parameter-display {
+    margin-right: 65.8rem;
   }
 }

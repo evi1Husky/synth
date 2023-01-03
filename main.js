@@ -116,6 +116,26 @@ function knobQEvent() {
 knobQ.knobEventHandler = knobQEvent();
 knobQ.knobEventHandler = knobQEvent;
 
+const knobLFO1 = document.getElementById("knob-lfo-1");
+knobLFO1.value = 0;
+function knobLFO1Event() {
+  const val = (knobLFO1.currentValue / 2).toFixed(0);
+  synth.lfoFrequency = val;
+  setParameterDisplay(val);
+}
+knobLFO1.knobEventHandler = knobLFO1Event();
+knobLFO1.knobEventHandler = knobLFO1Event;
+
+const knobLFO1gain = document.getElementById("knob-lfo-1-gain");
+knobLFO1gain.value = 0;
+function knobLFO1gainEvent() {
+  const val = (knobLFO1gain.currentValue / 2).toFixed(0);
+  synth.lfoGainValue = val;
+  setParameterDisplay(val);
+}
+knobLFO1gain.knobEventHandler = knobLFO1gainEvent();
+knobLFO1gain.knobEventHandler = knobLFO1gainEvent;
+
 const waveFormButtons = document.querySelectorAll('.wave-form-button');
 waveFormButtons.forEach(button => {
   if (synth.waveform === button.value) {

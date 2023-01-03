@@ -28,6 +28,24 @@
   <body>
     <main class="synth">
       <div class="instrument-panel">
+        <div class="LFO-controls">
+          <div>
+            <label class="LFO-label" for="lfo-1">lfo-1</label>
+            <control-knob name="lfo-1" id="knob-lfo-1"></control-knob>
+          </div>
+          <div>
+            <label class="LFO-label" for="lfo-1-gain">gain</label>
+            <control-knob name="lfo-1-gain" id="knob-lfo-1-gain"></control-knob>
+          </div>
+          <div>
+            <label class="LFO-label" for="lfo-2">lfo-2</label>
+            <control-knob name="lfo-2" id="knob-lfo-2"></control-knob>
+          </div>
+          <div>
+            <label class="LFO-label" for="lfo-2-gain">gain</label>
+            <control-knob name="lfo-2-gain" id="knob-lfo-2-gain"></control-knob>
+          </div>
+        </div>
         <div class="low-pass-filter">
           <div>
             <label class="low-pass-filter-label" for="lowpass">lowpass</label>
@@ -58,7 +76,8 @@
             <control-knob name="delay" id="knobDelay"></control-knob>
           </div>
           <div>
-            <label class="gain-delay-label" for="feedback">F/B</label>
+            <label id="deelayFeedbackLabel" class="gain-delay-label" 
+            for="feedback">F/B</label>
             <control-knob name="feedback" id="deelayFeedback"></control-knob>
           </div>
         </div>
@@ -80,6 +99,7 @@
             <control-knob name="release" id="knobRelease"></control-knob>
           </div>
         </div>
+        <div id="horizontalLine"></div>
         <div class="parameter-display">gain: 12</div>
         <audio-oscilloscope class="oscilloscope"></audio-oscilloscope>
         <signal-lamp class="lamp"></signal-lamp>

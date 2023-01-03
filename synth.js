@@ -29,6 +29,10 @@ export class Synth {
 
   osc = [];
   gainOsc = [];
+  lfo = [];
+  lfo2 = [];
+  lfoGain = [];
+  lfoGain2 = [];
 
   attack = 0.1;
   decay = 0.4;
@@ -39,6 +43,11 @@ export class Synth {
   detune = 0;
   detuneValue = 30;
   numberOfOscs = 3;
+
+  lfoFrequency = 0;
+  lfoGainValue = 0;
+  lfo2Frequency = 0;
+  lfo2GainValue = 0;
 
   notes = {
     0: 262,
@@ -62,20 +71,39 @@ export class Synth {
     q: 1, w: 2, e: 3, r: 4, t: 5, y: 6, u: 7, i: 8, o: 9, p: 10,
     '[': 11, ']': 12, 'a': 13, 's': 14,};
 
-  createOsc(frequency) {
+  envelopADS(frequency) {
     const now = this.context.currentTime;
+
+    this.lfo.push(this.context.createOscillator());
+    this.lfo[this.lfo.length - 1].frequency.value = this.lfoFrequency;
+    this.lfoGain.push(this.context.createGain());
+    this.lfoGain[this.lfoGain.length - 1].gain.value = this.lfoGainValue;
+    this.lfo[this.lfo.length - 1].connect(this.lfoGain[this.lfoGain.length - 1]);
+
+    this.lfo2.push(this.context.createOscillator());
+    this.lfo2[this.lfo2.length - 1].frequency.value = this.lfo2Frequency;
+    this.lfoGain2.push(this.context.createGain());
+    this.lfoGain2[this.lfoGain2.length - 1].gain.value = this.lfo2GainValue;
+    this.lfo2[this.lfo2.length - 1].connect(this.lfoGain2[this.lfoGain2.length - 1]);
+
     this.osc.push(this.context.createOscillator());
     this.gainOsc.push(this.context.createGain());
+
     this.osc[this.osc.length - 1].connect(this.gainOsc[this.gainOsc.length - 1]);
     this.gainOsc[this.gainOsc.length - 1].connect(this.filter);
+
+    this.lfoGain[this.lfoGain.length - 1].connect(this.osc[this.osc.length - 1].frequency)
+    this.lfoGain2[this.lfoGain2.length - 1
+      ].connect(this.gainOsc[this.gainOsc.length - 1].gain)
+
     this.osc[this.osc.length - 1].detune.setValueAtTime(this.detune, now);
     this.osc[this.osc.length - 1].type = this.waveform;
     this.osc[this.osc.length - 1].frequency.setValueAtTime(frequency, now);
-  }
 
-  envelopADS() {
-    const now = this.context.currentTime;
     this.osc[this.osc.length - 1].start(0);
+    this.lfo[this.lfo.length - 1].start(0);
+    this.lfo2[this.lfo2.length - 1].start(0);
+
     this.gainOsc[this.gainOsc.length - 1].gain.exponentialRampToValueAtTime(
       1, now + this.attack);
     this.gainOsc[this.gainOsc.length - 1].gain.exponentialRampToValueAtTime(
@@ -84,18 +112,28 @@ export class Synth {
 
   envelopR(index) {
     const now = this.context.currentTime;
-    this.gainOsc[index].gain.linearRampToValueAtTime(
-      0.00001, now + this.release);
+
+    this.gainOsc[index].gain.linearRampToValueAtTime(0.00001, now + this.release);
     this.osc[index].stop(now + this.release + 0.01);
+
+    this.lfoGain[index].gain.linearRampToValueAtTime(0.00001, now + this.release);
+    this.lfo[index].stop(now + this.release + 0.01);
+
+    this.lfoGain2[index].gain.linearRampToValueAtTime(0.00001, now + this.release);
+    this.lfo2[index].stop(now + this.release + 0.01);
+  
     this.osc.splice(index, 1);
     this.gainOsc.splice(index, 1);
+    this.lfo.splice(index, 1);
+    this.lfoGain.splice(index, 1);
+    this.lfo2.splice(index, 1);
+    this.lfoGain2.splice(index, 1);
   }
 
   keyDownEvent(key) {
     let note = this.notes[key]
     for (let number = 0; number < this.numberOfOscs; number++) {
-      this.createOsc(note);
-      this.envelopADS();
+      this.envelopADS(note);
       // note = this.transpose(note, -7)
       this.detune = 
         Math.random() * (this.detuneValue - -this.detuneValue) + -this.detuneValue;
