@@ -45,7 +45,7 @@ customElements.define(
         margin-left: 76%;
         border-radius: 100px;
         background: var(--dialColor);
-        box-shadow:  0 0 20px 0.1px var(--dialColor);
+        box-shadow:  0 0 15px 0.1px var(--dialColor);
       }
       </style>
 

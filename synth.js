@@ -27,8 +27,8 @@ export class Synth {
     this.init();
   }
 
-  osc = [];
-  gainOsc = [];
+  vco = [];
+  gainVco = [];
   lfo = [];
   lfo2 = [];
   lfoGain = [];
@@ -86,35 +86,35 @@ export class Synth {
     this.lfoGain2[this.lfoGain2.length - 1].gain.value = this.lfo2GainValue;
     this.lfo2[this.lfo2.length - 1].connect(this.lfoGain2[this.lfoGain2.length - 1]);
 
-    this.osc.push(this.context.createOscillator());
-    this.gainOsc.push(this.context.createGain());
+    this.vco.push(this.context.createOscillator());
+    this.gainVco.push(this.context.createGain());
 
-    this.osc[this.osc.length - 1].connect(this.gainOsc[this.gainOsc.length - 1]);
-    this.gainOsc[this.gainOsc.length - 1].connect(this.filter);
+    this.vco[this.vco.length - 1].connect(this.gainVco[this.gainVco.length - 1]);
+    this.gainVco[this.gainVco.length - 1].connect(this.filter);
 
-    this.lfoGain[this.lfoGain.length - 1].connect(this.osc[this.osc.length - 1].frequency)
+    this.lfoGain[this.lfoGain.length - 1].connect(this.vco[this.vco.length - 1].frequency)
     this.lfoGain2[this.lfoGain2.length - 1
-      ].connect(this.gainOsc[this.gainOsc.length - 1].gain)
+      ].connect(this.gainVco[this.gainVco.length - 1].gain)
 
-    this.osc[this.osc.length - 1].detune.setValueAtTime(this.detune, now);
-    this.osc[this.osc.length - 1].type = this.waveform;
-    this.osc[this.osc.length - 1].frequency.setValueAtTime(frequency, now);
+    this.vco[this.vco.length - 1].detune.setValueAtTime(this.detune, now);
+    this.vco[this.vco.length - 1].type = this.waveform;
+    this.vco[this.vco.length - 1].frequency.setValueAtTime(frequency, now);
 
-    this.osc[this.osc.length - 1].start(0);
+    this.vco[this.vco.length - 1].start(0);
     this.lfo[this.lfo.length - 1].start(0);
     this.lfo2[this.lfo2.length - 1].start(0);
 
-    this.gainOsc[this.gainOsc.length - 1].gain.exponentialRampToValueAtTime(
+    this.gainVco[this.gainVco.length - 1].gain.exponentialRampToValueAtTime(
       1, now + this.attack);
-    this.gainOsc[this.gainOsc.length - 1].gain.exponentialRampToValueAtTime(
+    this.gainVco[this.gainVco.length - 1].gain.exponentialRampToValueAtTime(
       this.sustain, now + this.decay);
   }
 
   envelopR(index) {
     const now = this.context.currentTime;
 
-    this.gainOsc[index].gain.linearRampToValueAtTime(0.00001, now + this.release);
-    this.osc[index].stop(now + this.release + 0.01);
+    this.gainVco[index].gain.linearRampToValueAtTime(0.00001, now + this.release);
+    this.vco[index].stop(now + this.release + 0.01);
 
     this.lfoGain[index].gain.linearRampToValueAtTime(0.00001, now + this.release);
     this.lfo[index].stop(now + this.release + 0.01);
@@ -122,8 +122,8 @@ export class Synth {
     this.lfoGain2[index].gain.linearRampToValueAtTime(0.00001, now + this.release);
     this.lfo2[index].stop(now + this.release + 0.01);
   
-    this.osc.splice(index, 1);
-    this.gainOsc.splice(index, 1);
+    this.vco.splice(index, 1);
+    this.gainVco.splice(index, 1);
     this.lfo.splice(index, 1);
     this.lfoGain.splice(index, 1);
     this.lfo2.splice(index, 1);
@@ -134,7 +134,7 @@ export class Synth {
     let note = this.notes[key]
     for (let number = 0; number < this.numberOfOscs; number++) {
       this.envelopADS(note);
-      // note = this.transpose(note, -7)
+      // note = this.transpose(note, 0)
       this.detune = 
         Math.random() * (this.detuneValue - -this.detuneValue) + -this.detuneValue;
     }
@@ -145,7 +145,7 @@ export class Synth {
 
   keyUpEvent() {
     for (let number = 0; number < this.numberOfOscs; number++) {
-      this.envelopR(this.gainOsc.length - 1);
+      this.envelopR(this.gainVco.length - 1);
     }
   }
 

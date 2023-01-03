@@ -20,6 +20,19 @@ function remapRange(x, inMin, inMax, outMin, outMax) {
 
 const parameterDisplay = document.querySelector('.parameter-display');
 
+const knobVcoNum = document.querySelector('.vco-num-knob');
+knobVcoNum.value = 15;
+function knobVcoNumEvent() {
+  let val = ~~(knobVcoNum.currentValue / 5);
+  if (val === 0) {
+    val = 1;
+  }
+  synth.numberOfOscs = val;
+  setParameterDisplay(val);
+}
+knobVcoNum.knobEventHandler = knobVcoNumEvent();
+knobVcoNum.knobEventHandler = knobVcoNumEvent;
+
 const knobAttack = document.getElementById('knobAttack');
 knobAttack.value = 30;
 function knobAttackEvent() {
@@ -135,6 +148,26 @@ function knobLFO1gainEvent() {
 }
 knobLFO1gain.knobEventHandler = knobLFO1gainEvent();
 knobLFO1gain.knobEventHandler = knobLFO1gainEvent;
+
+const knobLFO2 = document.getElementById("knob-lfo-2");
+knobLFO2.value = 0;
+function knobLFO2Event() {
+  const val = (knobLFO2.currentValue / 2).toFixed(0);
+  synth.lfo2Frequency = val;
+  setParameterDisplay(val);
+}
+knobLFO2.knobEventHandler = knobLFO2Event();
+knobLFO2.knobEventHandler = knobLFO2Event;
+
+const knobLFO2gain = document.getElementById("knob-lfo-2-gain");
+knobLFO2gain.value = 0;
+function knobLFO2gainEvent() {
+  const val = (knobLFO2gain.currentValue / 100).toFixed(2);
+  synth.lfo2GainValue = val;
+  setParameterDisplay(val);
+}
+knobLFO2gain.knobEventHandler = knobLFO2gainEvent();
+knobLFO2gain.knobEventHandler = knobLFO2gainEvent;
 
 const waveFormButtons = document.querySelectorAll('.wave-form-button');
 waveFormButtons.forEach(button => {

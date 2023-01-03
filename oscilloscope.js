@@ -12,8 +12,8 @@ customElements.define(
         --height: 90px;
       }
       .oscilloscope {
-        border: 0.9px solid #616a77;
-        border-radius: 6px;
+        border: 1px solid #5e6573;
+        border-radius: 7px;
         width: var(--width);
         height: var(--height);
         background: black;
