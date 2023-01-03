@@ -48,9 +48,9 @@ body {
   background: #171920;
   border: 0.5px solid #616a77;
   min-width: 70rem;
-  min-height: 30rem;
+  min-height: 34.5rem;
   width: 70rem;
-  height: 33.5rem;
+  height: 34.5rem;
   border-radius: 1.1rem;
   user-select: none;
 }
@@ -185,8 +185,35 @@ body {
   .synth {
       min-width: none;
       min-height: none;
-      width: 75vw;
-      height: 68vh;
+      width: 99vw;
+      height: 99vh;
       overflow: hidden;
     }
+  .keyboard {
+    margin-top: 5rem;
+    margin-bottom: 2rem;
+  }
+
+  .key {
+    width: 5.7rem;
+    height: 17rem;
+  }
+
+  .ADSR-controls, .gain-delay-controls {
+    width: 15.5rem;
+  }
+  .wave-form-buttons {
+    width:  14.5rem;
+  }
+  .low-pass-filter {
+    width: 9rem;
+  }
+  .oscilloscope {
+    margin-left: 4rem;
+  }
+  .lamp {
+    margin-bottom: 11rem;
+    margin-left: 2rem;
+    margin-right: 25rem;
+  }
 }
