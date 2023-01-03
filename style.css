@@ -181,18 +181,12 @@ body {
     }
 }
 
-
 @media (orientation: landscape) and (hover: none) and (pointer: coarse) {
   .synth {
       min-width: none;
       min-height: none;
-      width: 99vw;
-      height: 99vh;
+      width: 75vw;
+      height: 68vh;
       overflow: hidden;
-    }
-  
-    .key {
-      width: 3.7rem;
-      height: 12rem;
     }
 }
