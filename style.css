@@ -38,7 +38,6 @@ body {
   align-items: center;
   width: 100vw;
   height: 100vh;
-  overflow: hidden;
 }
 
 .synth {
@@ -182,20 +181,18 @@ body {
     }
 }
 
-@media (max-width: 420px) {
-.synth {
-    min-width: 95%;
-    min-height: 33.5rem;
-    width: 95%;
-    height: 33.5rem;
-  }
-  .key {
-    width: 3.7rem;
-    height: 12rem;
-  }
-  @supports (-webkit-hyphens:none) {
-  .lamp {
-    margin-right: 30rem;
-  }
- }
+
+@media (orientation: landscape) and (hover: none) and (pointer: coarse) {
+  .synth {
+      min-width: none;
+      min-height: none;
+      width: 99vw;
+      height: 99vh;
+      overflow: hidden;
+    }
+  
+    .key {
+      width: 3.7rem;
+      height: 12rem;
+    }
 }

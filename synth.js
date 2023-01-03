@@ -6,8 +6,6 @@ export class Synth {
     this.analyser = this.audioCtx.createAnalyser();
     this.destination = this.audioCtx.destination;
     this.filter = this.audioCtx.createBiquadFilter();
-    this.maxFilterFrequency = this.audioCtx.sampleRate / 2;
-    this.filter.type = 'lowpass';
 
     this.filter.connect(this.gain);
     this.gain.connect(this.destination);
@@ -15,6 +13,8 @@ export class Synth {
 
     this.gain.gain.value = 0.15;
     this.analyser.fftSize = 1024;
+    this.maxFilterFrequency = this.audioCtx.sampleRate / 2;
+    this.filter.type = 'lowpass';
 
     this.init();
   }
