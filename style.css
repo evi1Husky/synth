@@ -32,12 +32,23 @@ article ul {
 }
 
 body {
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
   background: black;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100vw;
   height: 100vh;
+}
+
+* {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 
 .synth {
@@ -134,7 +145,7 @@ body {
 
 .ADSR-label, .gain-delay-label, .low-pass-filter-label {
   user-select: none;
-  color: #8a96a8;
+  color: rgba(214, 229, 255, 0.6);
   display: block;
   text-align: center;
   margin-bottom: 0.8rem;
@@ -175,6 +186,21 @@ body {
   border: 1px solid #2b2d35;
 }
 
+.parameter-display {
+  text-align: center;
+  padding-top: 0.1rem;
+  width: 3.3rem;
+  height: 1.2rem;
+  background-color: black;
+  border: 0.5px solid #616a77;
+  margin-right: 71rem;
+  border-radius: 0.5rem;
+  position: absolute;
+  margin-bottom: 14rem;
+  color: rgba(214, 229, 255, 0.9);
+  text-shadow: 0px 0px 12px rgba(214, 229, 255, 0.9);
+}
+
 @supports (-webkit-hyphens:none) {
   .wave-form-button-active {
       filter: none;
@@ -183,12 +209,14 @@ body {
 
 @media (orientation: landscape) and (hover: none) and (pointer: coarse) {
   .synth {
-      min-width: none;
-      min-height: none;
-      width: 99vw;
-      height: 99vh;
-      overflow: hidden;
-    }
+    -webkit-tap-highlight-color: transparent;
+    min-width: none;
+    min-height: none;
+    width: 99vw;
+    height: 99vh;
+    overflow: hidden;
+  }
+
   .keyboard {
     margin-top: 5rem;
     margin-bottom: 2rem;
@@ -202,15 +230,19 @@ body {
   .ADSR-controls, .gain-delay-controls {
     width: 15.5rem;
   }
+
   .wave-form-buttons {
     width:  14.5rem;
   }
+
   .low-pass-filter {
     width: 9rem;
   }
+
   .oscilloscope {
     margin-left: 4rem;
   }
+
   .lamp {
     margin-bottom: 11rem;
     margin-left: 2rem;
