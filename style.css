@@ -158,7 +158,8 @@ body {
   gap: 1.8rem;
 }
 
-.vco-num-knob {
+.vco-num-knob,
+.transpose-knob {
   width: 6.2rem;
   display: flex;
   align-items: center;
@@ -171,11 +172,18 @@ body {
   margin-bottom: 22rem;
 }
 
+.transpose {
+  position: absolute;
+  margin-right: 74.2rem;
+  margin-bottom: 22rem;
+}
+
 .ADSR-label,
 .gain-delay-label,
 .low-pass-filter-label,
 .LFO-label,
-.vco-num-label {
+.vco-num-label,
+.transpose-label {
   user-select: none;
   color: rgba(214, 229, 255, 0.6);
   display: block;
@@ -262,7 +270,7 @@ body {
 
   .key {
     width: 5.7rem;
-    height: 17rem;
+    height: 16.3rem;
   }
 
   .ADSR-controls,
@@ -283,8 +291,8 @@ body {
   }
 
   .lamp {
-    margin-bottom: 15rem;
-    margin-left: 57rem;
+    margin-bottom: 20rem;
+    margin-left: 39rem;
   }
 
   .parameter-display {
@@ -294,6 +302,11 @@ body {
 
   .vco-num {
     margin-right: 101rem;
+    margin-bottom: 23rem;
+  }
+
+  .transpose {
+    margin-right: 85rem;
     margin-bottom: 23rem;
   }
 }

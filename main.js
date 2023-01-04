@@ -4,7 +4,8 @@ import { Synth } from './synth.js';
 
 localStorage.clear();
 
-const synth = new Synth();
+const keys =  document.querySelectorAll('.key');
+const synth = new Synth(keys);
 
 const oscilloscope = document.querySelector('.oscilloscope');
 oscilloscope.analyser = synth.analyser;
@@ -168,6 +169,17 @@ function knobLFO2gainEvent() {
 }
 knobLFO2gain.knobEventHandler = knobLFO2gainEvent();
 knobLFO2gain.knobEventHandler = knobLFO2gainEvent;
+
+const knobTranspose = document.getElementById("transpose-knob");
+knobTranspose.value = 50;
+function knobTransposeEvent() {
+  let val = ~~(knobTranspose.currentValue / 2.5);
+  val = remapRange(val, 0, 40, -20, 20);
+  synth.transposeValue = val;
+  setParameterDisplay(val);
+}
+knobTranspose.knobEventHandler = knobTransposeEvent();
+knobTranspose.knobEventHandler = knobTransposeEvent;
 
 const waveFormButtons = document.querySelectorAll('.wave-form-button');
 waveFormButtons.forEach(button => {

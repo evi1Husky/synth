@@ -1,6 +1,6 @@
 export class Synth {
-  constructor() {
-    this.keysElements = document.querySelectorAll('.key');
+  constructor(keys) {
+    this.keysElements = keys;
     this.context = new (window.AudioContext || window.webkitAudioContext)();
     this.gain = this.context.createGain();
     this.analyser = this.context.createAnalyser();
@@ -43,6 +43,7 @@ export class Synth {
   detune = 0;
   detuneValue = 30;
   numberOfOscs = 3;
+  transposeValue = 0;
 
   lfoFrequency = 0;
   lfoGainValue = 0;
@@ -130,18 +131,24 @@ export class Synth {
     this.lfoGain2.splice(index, 1);
   }
 
+  transpose(frequency, steps) {
+    if (steps != 0) {
+      return frequency * Math.pow(2, steps / 12)
+    } else {
+      return frequency;
+    }
+  };
+
   keyDownEvent(key) {
     let note = this.notes[key]
     for (let number = 0; number < this.numberOfOscs; number++) {
       this.envelopADS(note);
-      // note = this.transpose(note, 0)
+      note = this.transpose(note, this.transposeValue)
       this.detune = 
         Math.random() * (this.detuneValue - -this.detuneValue) + -this.detuneValue;
     }
     this.detune = 0;
   }
-
-  transpose = (frequency, steps) => frequency * Math.pow(2, steps / 12);
 
   keyUpEvent() {
     for (let number = 0; number < this.numberOfOscs; number++) {
